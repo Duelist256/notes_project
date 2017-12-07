@@ -32,12 +32,12 @@ public class Tag {
     public class Builder {
         private Builder() {}
 
-        public Builder tagId(int id) {
+        public Builder id(int id) {
             Tag.this.id = id;
             return this;
         }
 
-        public Builder tagName(String name) {
+        public Builder name(String name) {
             Tag.this.name = name;
             return this;
         }

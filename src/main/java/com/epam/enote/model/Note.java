@@ -33,12 +33,12 @@ public class Note {
     public class Builder {
         private Builder() {}
 
-        public Builder notebookId(int id) {
+        public Builder id(int id) {
             Note.this.id = id;
             return this;
         }
 
-        public Builder noteId(String text) {
+        public Builder text(String text) {
             Note.this.text = text;
             return this;
         }
