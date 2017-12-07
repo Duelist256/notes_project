@@ -41,4 +41,36 @@ public class User extends Base {
     public void setName(String name) {
         this.name = name;
     }
+
+    public class Builder{
+
+        private Builder(){
+
+        }
+
+        public Builder id(int id){
+            User.this.id = id;
+            return this;
+        }
+
+        public Builder login(String login){
+            User.this.login = login;
+            return this;
+        }
+
+        public Builder password(String password){
+            User.this.password = password;
+            return this;
+        }
+
+        public Builder name(String name){
+            User.this.name = name;
+            return this;
+        }
+
+        public User build(){
+            return User.this;
+        }
+    }
+
 }
