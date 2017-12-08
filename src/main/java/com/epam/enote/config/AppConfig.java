@@ -39,7 +39,7 @@ public class AppConfig {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
         bean.setJpaVendorAdapter(jpaVendorAdapter);
-        bean.setPackagesToScan("com.epam.enote.persistence");
+        bean.setPackagesToScan("com.epam.enote.model");
         return bean;
     }
 
