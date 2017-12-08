@@ -3,15 +3,13 @@ package com.epam.enote.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tag")
-public class Tag {
-    @Basic
-    @Column(name = "id")
-    int id;
+public class Notebook {
 
-    @Basic
-    @Column(name = "name")
-    String name;
+    @Id
+    @Column(name = "id")
+    private int id;
+
+    private int userId;
 
     public int getId() {
         return id;
@@ -21,12 +19,12 @@ public class Tag {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -43,13 +41,13 @@ public class Tag {
             return false;
         }
 
-        Tag tag = (Tag) obj;
+        Notebook notebook = (Notebook) obj;
 
-        if (id != tag.getId()) {
+        if (id != notebook.getId()) {
             return false;
         }
 
-        if (name != tag.getName()) {
+        if (userId != notebook.getUserId()) {
             return false;
         }
 
@@ -58,8 +56,9 @@ public class Tag {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * id + (name != null ? name.hashCode() : 0);
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + userId;
         return result;
     }
 
@@ -67,17 +66,17 @@ public class Tag {
         private Builder() {}
 
         public Builder id(int id) {
-            Tag.this.id = id;
+            Notebook.this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
-            Tag.this.name = name;
+        public Builder userId(int userId) {
+            Notebook.this.userId = userId;
             return this;
         }
 
-        public Tag build() {
-            return Tag.this;
+        public Notebook build() {
+            return Notebook.this;
         }
     }
 }

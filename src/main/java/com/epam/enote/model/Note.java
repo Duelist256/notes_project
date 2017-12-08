@@ -1,18 +1,21 @@
 package com.epam.enote.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "note")
+@Table(name = "notes")
 public class Note {
 
-    @Basic
-    @Column(name = "id")
-    int id;
+    @Id
+    @GeneratedValue
+    private int id;
 
-    @Basic
-    @Column(name = "name")
-    String text;
+    private String text;
+
+    private int notebookId;
 
     public int getId() {
         return id;
@@ -28,6 +31,14 @@ public class Note {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getNotebookId() {
+        return notebookId;
+    }
+
+    public void setNotebookId(int notebookId) {
+        this.notebookId = notebookId;
     }
 
     @Override
@@ -50,7 +61,11 @@ public class Note {
             return false;
         }
 
-        if (text != note.getText()) {
+        if (!text.equals(note.getText())) {
+            return false;
+        }
+
+        if (notebookId != note.getNotebookId()) {
             return false;
         }
 
@@ -59,13 +74,16 @@ public class Note {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * id + (text != null ? text.hashCode() : 0);
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + notebookId;
         return result;
     }
 
     public class Builder {
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder id(int id) {
             Note.this.id = id;
@@ -74,6 +92,11 @@ public class Note {
 
         public Builder text(String text) {
             Note.this.text = text;
+            return this;
+        }
+
+        public Builder notebookId(int notebookId) {
+            Note.this.notebookId = notebookId;
             return this;
         }
 

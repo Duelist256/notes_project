@@ -8,19 +8,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private int id;
 
-    @Basic
-    @Column(name = "login")
-    String login;
+    private String login;
 
-    @Basic
-    @Column(name = "password")
-    String password;
+    private String password;
 
-    @Basic
-    @Column(name = "name")
-    String name;
+    private String name;
 
 
 
@@ -93,7 +87,8 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 17;
+        result = 31 * result + id;
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
