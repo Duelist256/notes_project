@@ -1,26 +1,34 @@
 package com.epam.enote.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
+
+    @Basic
+    @Column(name = "login")
     String login;
+
+    @Basic
+    @Column(name = "password")
     String password;
+
+    @Basic
+    @Column(name = "name")
     String name;
 
-    public int getId() {
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,5 +98,37 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+      
+    public class Builder{
+
+        private Builder(){
+
+        }
+
+        public Builder id(int id){
+            User.this.id = id;
+            return this;
+        }
+
+        public Builder login(String login){
+            User.this.login = login;
+            return this;
+        }
+
+        public Builder password(String password){
+            User.this.password = password;
+            return this;
+        }
+
+        public Builder name(String name){
+            User.this.name = name;
+            return this;
+        }
+
+        public User build(){
+            return User.this;
+        }
     }
 }
