@@ -22,7 +22,10 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("classpath:/enote_schema.sql")
+                .build();
     }
 
     @Bean

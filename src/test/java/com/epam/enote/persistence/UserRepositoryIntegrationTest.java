@@ -9,6 +9,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -33,5 +35,12 @@ public class UserRepositoryIntegrationTest {
         User result = repository.getById(1);
 
         assertThat(user.equals(result), is(true));
+
+        User user2 = new User();
+        user.setId(12);
+        user.setLogin("ew");
+        user.setPassword("wer");
+        user.setName("name1");
+        repository.save(user2);
     }
 }
