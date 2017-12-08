@@ -29,6 +29,41 @@ public class NotebookNotes {
         this.noteId = noteId;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        NotebookNotes notebookNotes = (NotebookNotes) obj;
+
+        if (notebookId != notebookNotes.getNotebookId()) {
+            return false;
+        }
+
+        if (noteId != notebookNotes.getNoteId()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = notebookId;
+        result = 31 * result + noteId;
+        return result;
+    }
+
     public class Builder {
         private Builder() {}
 

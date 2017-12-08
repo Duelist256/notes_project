@@ -29,6 +29,40 @@ public class Tag {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Tag tag = (Tag) obj;
+
+        if (id != tag.getId()) {
+            return false;
+        }
+
+        if (name != tag.getName()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * id + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
     public class Builder {
         private Builder() {}
 

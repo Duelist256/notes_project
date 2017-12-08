@@ -54,6 +54,50 @@ public class User {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        User user = (User) obj;
+
+        if (id != user.getId()) {
+            return false;
+        }
+
+        if (login != user.getLogin()) {
+            return false;
+        }
+
+        if (name != user.getName()) {
+            return false;
+        }
+
+        if (password != user.getPassword()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
     public class Builder{
 
         private Builder(){

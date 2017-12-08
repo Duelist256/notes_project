@@ -30,6 +30,40 @@ public class Note {
         this.text = text;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Note note = (Note) obj;
+
+        if (id != note.getId()) {
+            return false;
+        }
+
+        if (text != note.getText()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * id + (text != null ? text.hashCode() : 0);
+        return result;
+    }
+
     public class Builder {
         private Builder() {}
 

@@ -1,6 +1,7 @@
 package com.epam.enote.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "note_tags")
@@ -27,6 +28,20 @@ public class NoteTags {
 
     public void setTagId(int tagId) {
         this.tagId = tagId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NoteTags noteTags = (NoteTags) o;
+        return noteId == noteTags.noteId &&
+                tagId == noteTags.tagId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(noteId, tagId);
     }
 
     public class Builder {
