@@ -22,6 +22,8 @@ public class User {
     @Column(name = "name")
     String name;
 
+
+
     public Integer getId() {
         return id;
     }
@@ -74,15 +76,15 @@ public class User {
             return false;
         }
 
-        if (login != user.getLogin()) {
+        if (!login.equals(user.getLogin())) {
             return false;
         }
 
-        if (name != user.getName()) {
+        if (!password.equals(user.getPassword())) {
             return false;
         }
 
-        if (password != user.getPassword()) {
+        if (!name.equals(user.getName())) {
             return false;
         }
 
@@ -98,6 +100,7 @@ public class User {
         return result;
     }
 
+      
     public class Builder{
 
         private Builder(){
@@ -128,5 +131,4 @@ public class User {
             return User.this;
         }
     }
-
 }
