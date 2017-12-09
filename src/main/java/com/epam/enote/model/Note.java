@@ -1,12 +1,9 @@
 package com.epam.enote.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "notes")
+@Table(name = "enote.notes")
 public class Note {
 
     @Id
