@@ -24,16 +24,14 @@ public class UserRepositoryIntegrationTest {
 
     @Test
     public void addAndGetUser() throws Exception {
-        User user = new User();
-        int id = 21;
-        user.setId(id);
-        user.setLogin("login1");
-        user.setPassword("pwd1");
-        user.setName("name1");
-
+        User user = User.newBuilder()
+                .login("login1")
+                .password("pwd1")
+                .name("name1")
+                .build();
         repository.save(user);
 
-        Optional<User> foundUser = repository.findById(id);
+        Optional<User> foundUser = repository.findById(21);
         assertTrue(foundUser.isPresent());
     }
 
@@ -61,14 +59,15 @@ public class UserRepositoryIntegrationTest {
 
     @Test
     public void deleteUser() throws Exception {
-        User user = new User();
-        int id = 22;
-        user.setId(id);
-        user.setLogin("wqeqweqw@test.com");
-        user.setPassword("erwerew");
-        user.setName("Asdas");
+        User user = User.newBuilder()
+                .login("wqeqweqw@test.com")
+                .password("erwerew")
+                .name("Asdas")
+                .build();
 
         repository.save(user);
+
+        int id = 22;
 
         Optional<User> foundUser = repository.findById(id);
         assertTrue(foundUser.isPresent());

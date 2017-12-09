@@ -16,8 +16,6 @@ public class User {
 
     private String name;
 
-
-
     public Integer getId() {
         return id;
     }
@@ -95,6 +93,9 @@ public class User {
         return result;
     }
 
+    public static Builder newBuilder() {
+        return new User().new Builder();
+    }
       
     public class Builder{
 
