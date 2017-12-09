@@ -23,24 +23,58 @@ public class UserRepositoryIntegrationTest {
     private UserRepository repository;
 
     @Test
-    public void test() throws Exception {
+    public void addAndGetUser() throws Exception {
         User user = new User();
-        user.setId(1);
+        int id = 21;
+        user.setId(id);
         user.setLogin("login1");
         user.setPassword("pwd1");
         user.setName("name1");
 
         repository.save(user);
 
-        User result = repository.getById(1);
+        User foundUser = repository.getById(id);
+        assertNotNull(foundUser);
+    }
 
-        assertThat(user.equals(result), is(true));
+    @Test
+    public void updateUser() throws Exception {
+        User user = repository.getById(1);
+        String oldLogin = user.getLogin();
 
-        User user2 = new User();
-        user.setId(12);
-        user.setLogin("ew");
-        user.setPassword("wer");
-        user.setName("name1");
-        repository.save(user2);
+        String newLogin = "newTest1@test.com";
+        user.setLogin(newLogin);
+        repository.save(user);
+
+        User foundUser = repository.getById(1);
+
+        assertNotEquals(oldLogin, foundUser.getLogin());
+        assertEquals(newLogin, foundUser.getLogin());
+    }
+
+    @Test
+    public void deleteUser() throws Exception {
+        User user = new User();
+        int id = 22;
+        user.setId(id);
+        user.setLogin("wqeqweqw@test.com");
+        user.setPassword("erwerew");
+        user.setName("Asdas");
+
+        repository.save(user);
+
+        User foundUser = repository.getById(id);
+        System.out.println(foundUser);
+        assertNotNull(foundUser);
+
+        repository.delete(foundUser);
+
+        assertNull(repository.getById(id));
+    }
+
+    @Test
+    public void findAll() throws Exception {
+        List<User> foundUsers = repository.findAll();
+        assertNotEquals(0, foundUsers.size());
     }
 }
