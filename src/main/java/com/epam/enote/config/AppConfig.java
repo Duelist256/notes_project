@@ -25,6 +25,7 @@ public class AppConfig {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:/enote_schema.sql")
+                .addScript("classpath:/enote_data.sql")
                 .build();
     }
 
