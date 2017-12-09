@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,23 +33,30 @@ public class UserRepositoryIntegrationTest {
 
         repository.save(user);
 
-        User foundUser = repository.getById(id);
-        assertNotNull(foundUser);
+        Optional<User> foundUser = repository.findById(id);
+        assertTrue(foundUser.isPresent());
     }
 
     @Test
     public void updateUser() throws Exception {
-        User user = repository.getById(1);
-        String oldLogin = user.getLogin();
+        Optional<User> user = repository.findById(1);
+
+        assertTrue(user.isPresent());
+        User gottenUser = user.get();
+        String oldLogin = gottenUser.getLogin();
 
         String newLogin = "newTest1@test.com";
-        user.setLogin(newLogin);
-        repository.save(user);
+        gottenUser.setLogin(newLogin);
+        repository.save(gottenUser);
 
-        User foundUser = repository.getById(1);
+        Optional<User> foundUser = repository.findById(1);
 
-        assertNotEquals(oldLogin, foundUser.getLogin());
-        assertEquals(newLogin, foundUser.getLogin());
+        if (foundUser.isPresent()) {
+            assertNotEquals(oldLogin, foundUser.get().getLogin());
+            assertEquals(newLogin, foundUser.get().getLogin());
+        } else {
+            fail("Found user is null");
+        }
     }
 
     @Test
@@ -63,13 +70,13 @@ public class UserRepositoryIntegrationTest {
 
         repository.save(user);
 
-        User foundUser = repository.getById(id);
-        System.out.println(foundUser);
-        assertNotNull(foundUser);
+        Optional<User> foundUser = repository.findById(id);
+        assertTrue(foundUser.isPresent());
 
-        repository.delete(foundUser);
+        repository.delete(foundUser.get());
 
-        assertNull(repository.getById(id));
+        Optional<User> foundUser2 = repository.findById(id);
+        assertFalse(foundUser2.isPresent());
     }
 
     @Test
