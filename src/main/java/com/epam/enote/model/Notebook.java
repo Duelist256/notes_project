@@ -7,9 +7,10 @@ import javax.persistence.*;
 public class Notebook {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "user_id")
     private int userId;
 
     public int getId() {
