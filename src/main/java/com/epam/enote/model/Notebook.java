@@ -63,6 +63,10 @@ public class Notebook {
         return result;
     }
 
+    public static Builder newBuilder() {
+        return new Notebook().new Builder();
+    }
+
     public class Builder {
         private Builder() {}
 
