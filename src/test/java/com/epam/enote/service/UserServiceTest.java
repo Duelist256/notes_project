@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -35,6 +36,36 @@ public class UserServiceTest {
 
         userService.addUser(user);
         verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    public void updateUser() throws Exception {
+        doReturn(User.newBuilder().build()).when(userRepository).save(any());
+
+        User user = User.newBuilder()
+                .login("login1")
+                .password("password1")
+                .name("Name1")
+                .build();
+
+        userService.updateUser(user);
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    public void getUserById() throws Exception {
+        doReturn(Optional.of(User.newBuilder().build())).when(userRepository).findById(anyInt());
+        int id = 2;
+        userService.getUserById(id);
+        verify(userRepository, times(1)).findById(id);
+    }
+
+    @Test
+    public void deleteUser() throws Exception {
+        doNothing().when(userRepository).delete(any());
+        User user = User.newBuilder().build();
+        userService.deleteUser(user);
+        verify(userRepository, times(1)).delete(user);
     }
 
     @Test
