@@ -16,7 +16,7 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public void addNotebook(Notebook notebook) {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        notebookRepository.save(notebook);
     }
 
     @Override
