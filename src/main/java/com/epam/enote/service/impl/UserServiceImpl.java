@@ -1,11 +1,13 @@
 package com.epam.enote.service.impl;
 
+import com.epam.enote.exception.NoSuchUserException;
 import com.epam.enote.model.User;
 import com.epam.enote.persistence.UserRepository;
 import com.epam.enote.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,17 +25,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        userRepository.save(user);
     }
 
     @Override
     public User getUserById(int id) {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        Optional<User> user = userRepository.findById(id);
+        return user.map(o -> user.get()).orElseThrow(() -> new NoSuchUserException("User not found!"));
     }
 
     @Override
     public void deleteUser(User user) {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        userRepository.delete(user);
     }
 
     @Override
