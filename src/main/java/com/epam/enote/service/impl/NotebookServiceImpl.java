@@ -1,10 +1,12 @@
 package com.epam.enote.service.impl;
 
+import com.epam.enote.exception.NoSuchNotebookException;
 import com.epam.enote.model.Notebook;
 import com.epam.enote.persistence.NotebookRepository;
 import com.epam.enote.service.NotebookService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class NotebookServiceImpl implements NotebookService {
 
@@ -21,12 +23,13 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public void updateNotebook(Notebook notebook) {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        notebookRepository.save(notebook);
     }
 
     @Override
     public Notebook findNotebookById(int id) {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        Optional<Notebook> notebook = notebookRepository.findById(id);
+        return notebook.map(o -> notebook.get()).orElseThrow(() -> new NoSuchNotebookException("Notebook not found!"));
     }
 
     @Override

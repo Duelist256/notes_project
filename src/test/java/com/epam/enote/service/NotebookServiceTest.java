@@ -10,8 +10,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -39,12 +42,23 @@ public class NotebookServiceTest {
 
     @Test
     public void updateNotebook() throws Exception {
-        fail("Method isn't implemented");
+        doReturn(Notebook.newBuilder().build()).when(notebookRepository).save(any());
+
+        Notebook notebook = Notebook.newBuilder()
+                .id(1)
+                .userId(15)
+                .build();
+
+        notebookService.updateNotebook(notebook);
+        verify(notebookRepository, times(1)).save(notebook);
     }
 
     @Test
     public void findNotebookById() throws Exception {
-        fail("Method isn't implemented");
+        doReturn(Optional.of(Notebook.newBuilder().build())).when(notebookRepository).findById(anyInt());
+        int id = 2;
+        notebookService.findNotebookById(id);
+        verify(notebookRepository, times(1)).findById(id);
     }
 
     @Test
