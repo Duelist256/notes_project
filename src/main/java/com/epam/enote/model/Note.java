@@ -78,6 +78,10 @@ public class Note {
         return result;
     }
 
+    public static Builder newBuilder() {
+        return new Note().new Builder();
+    }
+
     public class Builder {
         private Builder() {
         }
