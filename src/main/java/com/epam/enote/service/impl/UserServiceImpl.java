@@ -38,6 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllUsers() {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        return userRepository.findAll();
     }
 }
