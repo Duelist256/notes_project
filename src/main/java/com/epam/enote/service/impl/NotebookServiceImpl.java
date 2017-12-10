@@ -34,11 +34,11 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public void deleteNotebook(Notebook notebook) {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        notebookRepository.delete(notebook);
     }
 
     @Override
     public List<Notebook> findAllNotebooks() {
-        throw new UnsupportedOperationException("Method isn't implemented yet");
+        return notebookRepository.findAll();
     }
 }

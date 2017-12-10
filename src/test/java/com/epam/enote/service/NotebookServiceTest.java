@@ -10,14 +10,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NotebookServiceTest {
@@ -63,12 +62,17 @@ public class NotebookServiceTest {
 
     @Test
     public void deleteNotebook() throws Exception {
-        fail("Method isn't implemented");
+        doNothing().when(notebookRepository).delete(any());
+        Notebook notebook = Notebook.newBuilder().build();
+        notebookService.deleteNotebook(notebook);
+        verify(notebookRepository, times(1)).delete(notebook);
     }
 
     @Test
     public void findAllNotebooks() throws Exception {
-        fail("Method isn't implemented");
+        doReturn(new ArrayList<>()).when(notebookRepository).findAll();
+        notebookService.findAllNotebooks();
+        verify(notebookRepository, times(1)).findAll();
     }
 
 }
