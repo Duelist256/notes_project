@@ -53,10 +53,10 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getUserById() throws Exception {
+    public void findUserById() throws Exception {
         doReturn(Optional.of(User.newBuilder().build())).when(userRepository).findById(anyInt());
         int id = 2;
-        userService.getUserById(id);
+        userService.findUserById(id);
         verify(userRepository, times(1)).findById(id);
     }
 
