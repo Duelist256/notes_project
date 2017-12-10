@@ -7,11 +7,12 @@ import javax.persistence.*;
 public class Note {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String text;
 
+    @Column(name = "notebook_id")
     private int notebookId;
 
     public int getId() {
