@@ -1,4 +1,4 @@
-package com.epam.enote.config;
+package com.epam.enote.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("com.epam.enote")
 @EnableJpaRepositories("com.epam.enote.persistence")
-public class AppConfig {
+public class DatabaseConfiguration {
 
     @Bean
     public DataSource dataSource() {

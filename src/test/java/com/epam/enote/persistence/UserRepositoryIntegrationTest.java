@@ -1,6 +1,6 @@
 package com.epam.enote.persistence;
 
-import com.epam.enote.config.AppConfig;
+import com.epam.enote.configuration.DatabaseConfiguration;
 import com.epam.enote.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = DatabaseConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class UserRepositoryIntegrationTest {
 
