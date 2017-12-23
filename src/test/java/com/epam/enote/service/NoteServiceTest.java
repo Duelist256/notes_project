@@ -28,26 +28,26 @@ public class NoteServiceTest {
     
     @Test
     public void addNote() throws Exception {
-        doReturn(Note.newBuilder().build()).when(noteRepository).save(any());
 
         Note note = Note.newBuilder()
                 .text("adasdasdqwrrq")
                 .notebookId(15)
                 .build();
 
+        doReturn(note).when(noteRepository).save(note);
         noteService.addNote(note);
         verify(noteRepository, times(1)).save(note);
     }
 
     @Test
     public void updateNote() throws Exception {
-        doReturn(Note.newBuilder().build()).when(noteRepository).save(any());
 
         Note note = Note.newBuilder()
                 .id(1)
                 .text("zzxxczxcz")
                 .notebookId(15)
                 .build();
+        doReturn(note).when(noteRepository).save(note);
 
         noteService.updateNote(note);
         verify(noteRepository, times(1)).save(note);
@@ -55,16 +55,16 @@ public class NoteServiceTest {
 
     @Test
     public void findNoteById() throws Exception {
-        doReturn(Optional.of(Note.newBuilder().build())).when(noteRepository).findById(anyInt());
+        doReturn(Note.newBuilder().build()).when(noteRepository).findOne(anyInt());
         int id = 2;
         noteService.findNoteById(id);
-        verify(noteRepository, times(1)).findById(id);
+        verify(noteRepository, times(1)).findOne(id);
     }
 
     @Test
     public void deleteNote() throws Exception {
-        doNothing().when(noteRepository).delete(any());
         Note note = Note.newBuilder().build();
+        doNothing().when(noteRepository).delete(note);
         noteService.deleteNote(note);
         verify(noteRepository, times(1)).delete(note);
     }

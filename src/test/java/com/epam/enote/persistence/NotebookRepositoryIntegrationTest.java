@@ -1,22 +1,20 @@
 package com.epam.enote.persistence;
 
-import com.epam.enote.configuration.DatabaseConfiguration;
 import com.epam.enote.model.Notebook;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseConfiguration.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class NotebookRepositoryIntegrationTest {
 
     @Autowired
@@ -29,27 +27,25 @@ public class NotebookRepositoryIntegrationTest {
                 .build();
         repository.save(notebook);
 
-        Optional<Notebook> foundUser = repository.findById(21);
-        assertTrue(foundUser.isPresent());
+        assertNotNull(repository.findOne(21));
     }
 
     @Test
     public void updateNotebook() throws Exception {
-        Optional<Notebook> notebook = repository.findById(1);
+        Notebook notebook = repository.findOne(1);
 
-        assertTrue(notebook.isPresent());
-        Notebook gottenNotebook = notebook.get();
-        int oldUserId = gottenNotebook.getUserId();
+        assertNotNull(notebook);
+        int oldUserId = notebook.getUserId();
 
         int newUserId = 222;
-        gottenNotebook.setUserId(newUserId);
-        repository.save(gottenNotebook);
+        notebook.setUserId(newUserId);
+        repository.save(notebook);
 
-        Optional<Notebook> foundNotebook = repository.findById(1);
+        Notebook foundNotebook = repository.findOne(1);
 
-        if (foundNotebook.isPresent()) {
-            assertNotEquals(oldUserId, foundNotebook.get().getUserId());
-            assertEquals(newUserId, foundNotebook.get().getUserId());
+        if (foundNotebook != null) {
+            assertNotEquals(oldUserId, foundNotebook.getUserId());
+            assertEquals(newUserId, foundNotebook.getUserId());
         } else {
             fail("Found notebook is null");
         }
@@ -65,13 +61,13 @@ public class NotebookRepositoryIntegrationTest {
 
         int id = 22;
 
-        Optional<Notebook> foundNotebook = repository.findById(id);
-        assertTrue(foundNotebook.isPresent());
+        Notebook foundNotebook = repository.findOne(id);
+        assertNotNull(foundNotebook);
 
-        repository.delete(foundNotebook.get());
+        repository.delete(foundNotebook);
 
-        Optional<Notebook> foundNotebook2 = repository.findById(id);
-        assertFalse(foundNotebook2.isPresent());
+
+        assertNull(repository.findOne(id));
     }
 
     @Test

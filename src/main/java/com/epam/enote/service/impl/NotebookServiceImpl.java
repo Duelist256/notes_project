@@ -4,10 +4,13 @@ import com.epam.enote.exception.NoSuchNotebookException;
 import com.epam.enote.model.Notebook;
 import com.epam.enote.persistence.NotebookRepository;
 import com.epam.enote.service.NotebookService;
+import org.springframework.stereotype.Service;
 
+import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class NotebookServiceImpl implements NotebookService {
 
     private final NotebookRepository notebookRepository;
@@ -28,8 +31,7 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public Notebook findNotebookById(int id) {
-        Optional<Notebook> notebook = notebookRepository.findById(id);
-        return notebook.map(o -> notebook.get()).orElseThrow(() -> new NoSuchNotebookException("Notebook not found!"));
+        return notebookRepository.findOne(id);
     }
 
     @Override

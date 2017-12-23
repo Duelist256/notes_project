@@ -17,7 +17,7 @@ CREATE TABLE notes (
   text TEXT NOT NULL,
   notebook_id INT NOT NULL,
   PRIMARY KEY (`id`));
-  
+
  CREATE TABLE notebooks (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,

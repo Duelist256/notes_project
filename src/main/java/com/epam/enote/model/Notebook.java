@@ -3,7 +3,7 @@ package com.epam.enote.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "enote.notebooks")
+@Table(name = "notebooks")
 public class Notebook {
 
     @Id

@@ -29,24 +29,24 @@ public class NotebookServiceTest {
 
     @Test
     public void addNotebook() throws Exception {
-        doReturn(Notebook.newBuilder().build()).when(notebookRepository).save(any());
 
         Notebook notebook = Notebook.newBuilder()
                 .userId(15)
                 .build();
 
+        doReturn(Notebook.newBuilder().build()).when(notebookRepository).save(notebook);
         notebookService.addNotebook(notebook);
         verify(notebookRepository, times(1)).save(notebook);
     }
 
     @Test
     public void updateNotebook() throws Exception {
-        doReturn(Notebook.newBuilder().build()).when(notebookRepository).save(any());
 
         Notebook notebook = Notebook.newBuilder()
                 .id(1)
                 .userId(15)
                 .build();
+        doReturn(Notebook.newBuilder().build()).when(notebookRepository).save(notebook);
 
         notebookService.updateNotebook(notebook);
         verify(notebookRepository, times(1)).save(notebook);
@@ -54,16 +54,16 @@ public class NotebookServiceTest {
 
     @Test
     public void findNotebookById() throws Exception {
-        doReturn(Optional.of(Notebook.newBuilder().build())).when(notebookRepository).findById(anyInt());
+        doReturn(Notebook.newBuilder().build()).when(notebookRepository).findOne(anyInt());
         int id = 2;
         notebookService.findNotebookById(id);
-        verify(notebookRepository, times(1)).findById(id);
+        verify(notebookRepository, times(1)).findOne(id);
     }
 
     @Test
     public void deleteNotebook() throws Exception {
-        doNothing().when(notebookRepository).delete(any());
         Notebook notebook = Notebook.newBuilder().build();
+        doNothing().when(notebookRepository).delete(notebook);
         notebookService.deleteNotebook(notebook);
         verify(notebookRepository, times(1)).delete(notebook);
     }

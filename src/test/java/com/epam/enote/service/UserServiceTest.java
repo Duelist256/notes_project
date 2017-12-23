@@ -26,7 +26,6 @@ public class UserServiceTest {
 
     @Test
     public void addUser() throws Exception {
-        doReturn(User.newBuilder().build()).when(userRepository).save(any());
 
         User user = User.newBuilder()
                 .login("login1")
@@ -34,19 +33,20 @@ public class UserServiceTest {
                 .name("Name1")
                 .build();
 
+        doReturn(User.newBuilder().build()).when(userRepository).save(user);
         userService.addUser(user);
         verify(userRepository, times(1)).save(user);
     }
 
     @Test
     public void updateUser() throws Exception {
-        doReturn(User.newBuilder().build()).when(userRepository).save(any());
 
         User user = User.newBuilder()
                 .login("login1")
                 .password("password1")
                 .name("Name1")
                 .build();
+        doReturn(User.newBuilder().build()).when(userRepository).save(user);
 
         userService.updateUser(user);
         verify(userRepository, times(1)).save(user);
@@ -54,16 +54,16 @@ public class UserServiceTest {
 
     @Test
     public void findUserById() throws Exception {
-        doReturn(Optional.of(User.newBuilder().build())).when(userRepository).findById(anyInt());
+        doReturn(User.newBuilder().build()).when(userRepository).findOne(anyInt());
         int id = 2;
         userService.findUserById(id);
-        verify(userRepository, times(1)).findById(id);
+        verify(userRepository, times(1)).findOne(id);
     }
 
     @Test
     public void deleteUser() throws Exception {
-        doNothing().when(userRepository).delete(any());
         User user = User.newBuilder().build();
+        doNothing().when(userRepository).delete(user);
         userService.deleteUser(user);
         verify(userRepository, times(1)).delete(user);
     }

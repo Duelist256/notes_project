@@ -4,10 +4,12 @@ import com.epam.enote.exception.NoSuchNoteException;
 import com.epam.enote.model.Note;
 import com.epam.enote.persistence.NoteRepository;
 import com.epam.enote.service.NoteService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class NoteServiceImpl implements NoteService {
 
     private final NoteRepository noteRepository;
@@ -28,8 +30,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Note findNoteById(int id) {
-        Optional<Note> note = noteRepository.findById(id);
-        return note.map(o -> note.get()).orElseThrow(() -> new NoSuchNoteException("Note not found!"));
+        return noteRepository.findOne(id);
     }
 
     @Override

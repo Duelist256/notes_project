@@ -1,22 +1,20 @@
 package com.epam.enote.persistence;
 
-import com.epam.enote.configuration.DatabaseConfiguration;
 import com.epam.enote.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseConfiguration.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserRepositoryIntegrationTest {
 
     @Autowired
@@ -31,27 +29,27 @@ public class UserRepositoryIntegrationTest {
                 .build();
         repository.save(user);
 
-        Optional<User> foundUser = repository.findById(21);
-        assertTrue(foundUser.isPresent());
+        User foundUser = repository.findOne(21);
+        assertNotNull(foundUser);
     }
 
     @Test
     public void updateUser() throws Exception {
-        Optional<User> user = repository.findById(1);
+        User user = repository.findOne(1);
 
-        assertTrue(user.isPresent());
-        User gottenUser = user.get();
-        String oldLogin = gottenUser.getLogin();
+        assertNotNull(user);
+//        User gottenUser = user.get();
+        String oldLogin = user.getLogin();
 
         String newLogin = "newTest1@test.com";
-        gottenUser.setLogin(newLogin);
-        repository.save(gottenUser);
+        user.setLogin(newLogin);
+        repository.save(user);
 
-        Optional<User> foundUser = repository.findById(1);
+        User foundUser = repository.findOne(1);
 
-        if (foundUser.isPresent()) {
-            assertNotEquals(oldLogin, foundUser.get().getLogin());
-            assertEquals(newLogin, foundUser.get().getLogin());
+        if (foundUser != null) {
+            assertNotEquals(oldLogin, foundUser.getLogin());
+            assertEquals(newLogin, foundUser.getLogin());
         } else {
             fail("Found user is null");
         }
@@ -69,13 +67,13 @@ public class UserRepositoryIntegrationTest {
 
         int id = 22;
 
-        Optional<User> foundUser = repository.findById(id);
-        assertTrue(foundUser.isPresent());
+        User foundUser = repository.findOne(id);
+        assertNotNull(foundUser);
 
-        repository.delete(foundUser.get());
+        repository.delete(foundUser);
 
-        Optional<User> foundUser2 = repository.findById(id);
-        assertFalse(foundUser2.isPresent());
+        User foundUser2 = repository.findOne(id);
+        assertNull(foundUser2);
     }
 
     @Test
