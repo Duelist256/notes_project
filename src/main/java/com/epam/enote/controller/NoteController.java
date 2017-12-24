@@ -38,7 +38,7 @@ public class NoteController {
         return new ResponseEntity<>("Update Note: " + note, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/delete/{noteId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{noteId}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteNote(@PathVariable String noteId) {
         noteService.deleteNote(Note.newBuilder().id(Integer.valueOf(noteId)).build());
         return new ResponseEntity<>("Delete Note: " + noteId, HttpStatus.OK);
