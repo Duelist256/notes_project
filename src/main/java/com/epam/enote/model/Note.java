@@ -1,5 +1,8 @@
 package com.epam.enote.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.persistence.*;
 
 @Entity
@@ -77,6 +80,20 @@ public class Note {
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + notebookId;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Note(" + this.getId() + ", " + this.getText() + ", " + this.getNotebookId() + ")";
+    }
+
+    public String toJson() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Can't convert note to JSON!");
+        }
     }
 
     public static Builder newBuilder() {
